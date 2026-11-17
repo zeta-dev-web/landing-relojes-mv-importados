@@ -1,5 +1,6 @@
 import { MessageCircle } from 'lucide-react';
 import { STORE_CONFIG, getGeneralInquiryUrl } from '../config/store';
+import { MvMonogram } from './MvMonogram';
 
 export function Navbar() {
   return (
@@ -7,9 +8,10 @@ export function Navbar() {
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
         <a
           href="#"
-          className="font-display text-lg font-bold tracking-tight text-zinc-950 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900"
+          className="inline-flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-zinc-950 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900"
         >
-          {STORE_CONFIG.brandName}
+          <MvMonogram className="h-6 w-auto shrink-0" />
+          <span>{STORE_CONFIG.brandName}</span>
         </a>
 
         <nav

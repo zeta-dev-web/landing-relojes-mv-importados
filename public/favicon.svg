@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 32" fill="none">
+  <style>
+    .mv-fold-back { fill: #71717A; }
+    .mv-fold-front { fill: #09090B; }
+    @media (prefers-color-scheme: dark) {
+      .mv-fold-back { fill: #A1A1AA; }
+      .mv-fold-front { fill: #FAFAFA; }
+    }
+  </style>
+  <!-- Recessed descending folds -->
+  <path class="mv-fold-back" d="M8 5H12.2L17.7 20H13.5L8 5Z" />
+  <path class="mv-fold-back" d="M19 5H23.2L29.2 27H25L19 5Z" />
+  <!-- Forward ascending strokes forming continuous MV ligature -->
+  <path class="mv-fold-front" d="M2 27L8 5H12.2L6.2 27H2Z" />
+  <path class="mv-fold-front" d="M13.5 20L19 5H23.2L17.7 20H13.5Z" />
+  <path class="mv-fold-front" d="M25 27L31.8 5H36L29.2 27H25Z" />
+</svg>
