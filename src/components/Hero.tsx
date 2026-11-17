@@ -14,7 +14,7 @@ export function Hero({ onExploreCatalog }: HeroProps) {
     <section className="border-b border-zinc-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="flex flex-col justify-center lg:col-span-6">
+          <div className="min-w-0 flex flex-col justify-center lg:col-span-6">
             <p className="text-xs font-medium tracking-wide text-zinc-500">
               Colección importada · Stock verificado
             </p>
@@ -49,8 +49,8 @@ export function Hero({ onExploreCatalog }: HeroProps) {
             </div>
           </div>
 
-          <div className="lg:col-span-6">
-            <div className="relative h-full min-h-[240px] overflow-hidden rounded-2xl bg-zinc-100 aspect-[16/9] lg:aspect-auto lg:min-h-[400px]">
+          <div className="min-w-0 lg:col-span-6">
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-2xl bg-zinc-100 lg:h-full lg:min-h-[400px] lg:aspect-auto">
               {heroImgFailed ? (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-zinc-100 to-zinc-200 text-zinc-400">
                   <Watch className="h-12 w-12 stroke-[1.25]" aria-hidden="true" />

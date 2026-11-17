@@ -12,8 +12,8 @@ export function HowToBuySection() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
-            <div className="relative h-full min-h-[240px] overflow-hidden rounded-2xl bg-zinc-900 aspect-[4/3] lg:aspect-auto">
+          <div className="min-w-0 lg:col-span-5">
+            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-900 lg:h-full lg:min-h-[320px] lg:aspect-auto">
               {imgFailed ? (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-zinc-900 text-zinc-400">
                   <Watch className="h-10 w-10 stroke-[1.25]" aria-hidden="true" />
@@ -33,7 +33,7 @@ export function HowToBuySection() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center lg:col-span-7">
+          <div className="min-w-0 flex flex-col justify-center lg:col-span-7">
             <p className="text-xs font-medium tracking-wide text-zinc-500">
               Compra directa sin vueltas
             </p>

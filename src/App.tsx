@@ -17,7 +17,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-zinc-900">
+    <div className="min-h-screen overflow-x-clip bg-[#FAFAFA] text-zinc-900">
       <Navbar />
 
       <main>
