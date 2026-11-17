@@ -1,6 +1,7 @@
 import { MessageCircle } from 'lucide-react';
 import { STORE_CONFIG, getGeneralInquiryUrl } from '../config/store';
 import { WATCH_CATEGORIES } from '../data/catalogData';
+import { MvMonogram } from './MvMonogram';
 
 interface FooterProps {
   onSelectCategory: (slug: string) => void;
@@ -14,11 +15,14 @@ export function Footer({ onSelectCategory }: FooterProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-start">
           <div className="max-w-xs">
-            <p className="font-display text-lg font-bold tracking-tight text-zinc-950">
-              {STORE_CONFIG.brandName}
-            </p>
+            <div className="inline-flex items-center gap-2.5">
+              <MvMonogram className="h-5 w-auto shrink-0" />
+              <p className="font-display text-lg font-bold tracking-tight text-zinc-950">
+                {STORE_CONFIG.brandName}
+              </p>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              Relojes importados seleccionados con fotos reales y atención directa por WhatsApp.
+              Productos Importados excelente calidad.
             </p>
           </div>
 
@@ -49,8 +53,13 @@ export function Footer({ onSelectCategory }: FooterProps) {
         </div>
 
         <div className="mt-8 border-t border-zinc-200 pt-6 flex flex-col gap-2 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {STORE_CONFIG.brandName}. Todos los derechos reservados.</p>
-          <p>Catálogo de relojes importados · Venta directa</p>
+          <p>
+            © {new Date().getFullYear()} {STORE_CONFIG.brandName} — Máximo Villalba. Todos los derechos reservados.
+          </p>
+          <p>
+            Diseño y desarrollo web por{' '}
+            <span className="font-semibold text-zinc-800">Zetadev</span>
+          </p>
         </div>
       </div>
     </footer>

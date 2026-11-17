@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MotionConfig } from 'motion/react';
 import { WatchModel } from './data/catalogData';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -17,29 +18,31 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#FAFAFA] text-zinc-900">
-      <Navbar />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen overflow-x-clip bg-[#FAFAFA] text-zinc-900">
+        <Navbar />
 
-      <main>
-        <Hero onExploreCatalog={handleExploreCatalog} />
+        <main>
+          <Hero onExploreCatalog={handleExploreCatalog} />
 
-        <CatalogSection
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          onSelectWatch={setSelectedWatch}
+          <CatalogSection
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            onSelectWatch={setSelectedWatch}
+          />
+
+          <HowToBuySection />
+        </main>
+
+        <Footer onSelectCategory={setSelectedCategory} />
+
+        <WatchDetailModal
+          watch={selectedWatch}
+          onClose={() => setSelectedWatch(null)}
         />
 
-        <HowToBuySection />
-      </main>
-
-      <Footer onSelectCategory={setSelectedCategory} />
-
-      <WatchDetailModal
-        watch={selectedWatch}
-        onClose={() => setSelectedWatch(null)}
-      />
-
-      <BackToCategoriesButton disabled={Boolean(selectedWatch)} />
-    </div>
+        <BackToCategoriesButton disabled={Boolean(selectedWatch)} />
+      </div>
+    </MotionConfig>
   );
 }

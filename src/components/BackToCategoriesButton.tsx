@@ -13,13 +13,17 @@ export function BackToCategoriesButton({
   useEffect(() => {
     const checkScroll = () => {
       const categoriasEl = document.getElementById('categorias');
+      const footerEl = document.querySelector('footer');
       if (!categoriasEl) {
         setVisible(false);
         return;
       }
-      const rect = categoriasEl.getBoundingClientRect();
-      // Show once the category selector has scrolled above the sticky navbar
-      setVisible(rect.bottom < 72);
+      const catRect = categoriasEl.getBoundingClientRect();
+      const pastCategories = catRect.bottom < 72;
+      const reachedFooter = footerEl
+        ? footerEl.getBoundingClientRect().top < window.innerHeight - 16
+        : false;
+      setVisible(pastCategories && !reachedFooter);
     };
 
     checkScroll();

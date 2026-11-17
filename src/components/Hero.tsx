@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowDownRight, MessageCircle, Watch } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { WATCH_CATEGORIES, WATCH_MODELS } from '../data/catalogData';
 import { getGeneralInquiryUrl } from '../config/store';
 
@@ -7,14 +8,49 @@ interface HeroProps {
   onExploreCatalog: () => void;
 }
 
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 export function Hero({ onExploreCatalog }: HeroProps) {
   const [heroImgFailed, setHeroImgFailed] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 32]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+
+  const trustItems = [
+    {
+      title: `${WATCH_CATEGORIES.length} líneas`,
+      desc: 'Marcas y estilos importados',
+    },
+    {
+      title: `${WATCH_MODELS.length} modelos`,
+      desc: 'Fotos reales desde nuestro stock',
+    },
+    {
+      title: '100% directo',
+      desc: 'Sin intermediarios ni carritos lentos',
+    },
+    {
+      title: 'Atención 1 a 1',
+      desc: 'Consulta rápida por WhatsApp',
+    },
+  ];
 
   return (
-    <section className="border-b border-zinc-200 bg-white">
+    <section ref={heroRef} className="border-b border-zinc-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="min-w-0 flex flex-col justify-center lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
+            className="min-w-0 flex flex-col justify-center lg:col-span-6"
+          >
             <p className="text-xs font-medium tracking-wide text-zinc-500">
               Colección importada · Stock verificado
             </p>
@@ -47,9 +83,14 @@ export function Hero({ onExploreCatalog }: HeroProps) {
                 <span>Asesoramiento directo</span>
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="min-w-0 lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.55, ease: EASE_OUT_EXPO }}
+            className="min-w-0 lg:col-span-6"
+          >
             <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-2xl bg-zinc-100 lg:h-full lg:min-h-[400px] lg:aspect-auto">
               {heroImgFailed ? (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-zinc-100 to-zinc-200 text-zinc-400">
@@ -59,53 +100,42 @@ export function Hero({ onExploreCatalog }: HeroProps) {
                   </span>
                 </div>
               ) : (
-                <img
+                <motion.img
+                  style={{ y: imgY, scale: imgScale }}
                   src="/src/assets/images/hero_mv_watches_1794929496075.jpg"
                   alt="Selección de relojes importados de acero y cronógrafos de MV Importados"
                   referrerPolicy="no-referrer"
                   loading="eager"
                   fetchPriority="high"
                   onError={() => setHeroImgFailed(true)}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover will-change-transform"
                 />
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-4 border-t border-zinc-200 pt-6 sm:mt-12 sm:grid-cols-4 sm:gap-8 sm:pt-8">
-          <div>
-            <p className="font-mono text-lg font-semibold tabular-nums text-zinc-950 sm:text-xl">
-              {WATCH_CATEGORIES.length} líneas
-            </p>
-            <p className="mt-0.5 text-xs text-zinc-500 sm:text-sm">
-              Marcas y estilos importados
-            </p>
-          </div>
-          <div>
-            <p className="font-mono text-lg font-semibold tabular-nums text-zinc-950 sm:text-xl">
-              {WATCH_MODELS.length} modelos
-            </p>
-            <p className="mt-0.5 text-xs text-zinc-500 sm:text-sm">
-              Fotos reales desde nuestro stock
-            </p>
-          </div>
-          <div>
-            <p className="font-mono text-lg font-semibold tabular-nums text-zinc-950 sm:text-xl">
-              100% directo
-            </p>
-            <p className="mt-0.5 text-xs text-zinc-500 sm:text-sm">
-              Sin intermediarios ni carritos lentos
-            </p>
-          </div>
-          <div>
-            <p className="font-mono text-lg font-semibold tabular-nums text-zinc-950 sm:text-xl">
-              Atención 1 a 1
-            </p>
-            <p className="mt-0.5 text-xs text-zinc-500 sm:text-sm">
-              Consulta rápida por WhatsApp
-            </p>
-          </div>
+          {trustItems.map((item, idx) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.38,
+                delay: idx * 0.06,
+                ease: EASE_OUT_EXPO,
+              }}
+            >
+              <p className="font-mono text-lg font-semibold tabular-nums text-zinc-950 sm:text-xl">
+                {item.title}
+              </p>
+              <p className="mt-0.5 text-xs text-zinc-500 sm:text-sm">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

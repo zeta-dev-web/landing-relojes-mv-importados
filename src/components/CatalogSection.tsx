@@ -8,6 +8,7 @@ import {
   SlidersHorizontal,
   X,
 } from 'lucide-react';
+import { motion } from 'motion/react';
 import {
   WATCH_CATEGORIES,
   WATCH_MODELS,
@@ -25,6 +26,7 @@ interface CatalogSectionProps {
 type SortOption = 'featured' | 'name-asc';
 
 const PAGE_SIZE = 12;
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function CatalogSection({
   selectedCategory,
@@ -91,14 +93,19 @@ export function CatalogSection({
         {/* Visual Category Selector */}
         <div id="categorias" className="scroll-mt-20 mb-10">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
+            >
               <p className="text-xs font-medium tracking-wide text-zinc-500">
                 Paso 1 · Elegí una línea
               </p>
               <h2 className="mt-1 font-display text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl">
                 Categorías de relojes
               </h2>
-            </div>
+            </motion.div>
 
             <button
               type="button"
@@ -119,19 +126,28 @@ export function CatalogSection({
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 sm:gap-4">
-            {displayedCategoryCards.map((cat) => {
+            {displayedCategoryCards.map((cat, idx) => {
               const isSelected = selectedCategory === cat.slug;
               return (
-                <button
+                <motion.button
                   key={cat.slug}
                   type="button"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{
+                    duration: 0.38,
+                    delay: (idx % 6) * 0.045,
+                    ease: EASE_OUT_EXPO,
+                  }}
+                  whileTap={{ scale: 0.97 }}
                   onClick={() => {
                     handleCategoryChange(cat.slug);
                     document
                       .getElementById('modelos-grid')
                       ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className={`group flex flex-col overflow-hidden rounded-xl border text-left transition-all active:scale-[0.98] ${
+                  className={`group flex flex-col overflow-hidden rounded-xl border text-left transition-colors ${
                     isSelected
                       ? 'border-zinc-950 bg-zinc-950 text-white shadow-sm'
                       : 'border-zinc-200 bg-white text-zinc-900 hover:border-zinc-400'
@@ -156,7 +172,7 @@ export function CatalogSection({
                       {cat.count} {cat.count === 1 ? 'modelo' : 'modelos'}
                     </p>
                   </div>
-                </button>
+                </motion.button>
               );
             })}
           </div>
@@ -332,9 +348,17 @@ export function CatalogSection({
           ) : (
             <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
               {visibleWatches.map((watch, index) => (
-                <article
-                  key={watch.id}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200/90 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                <motion.article
+                  key={`${selectedCategory}-${watch.id}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.08 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: (index % 4) * 0.05,
+                    ease: EASE_OUT_EXPO,
+                  }}
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200/90 bg-white transition-shadow duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <button
                     type="button"
@@ -397,7 +421,7 @@ export function CatalogSection({
                       </button>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
           )}
