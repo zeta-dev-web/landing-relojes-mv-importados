@@ -2,8 +2,7 @@ import { WatchModel } from '../data/catalogData';
 
 export const STORE_CONFIG = {
   brandName: 'MV Importados',
-  // Reemplazá este número por tu WhatsApp comercial con código de país (sin + ni espacios)
-  whatsappNumber: '5491100000000',
+  whatsappNumber: '5493813451366',
   tagline: 'Relojería importada seleccionada',
 } as const;
 
