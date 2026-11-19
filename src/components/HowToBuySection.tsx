@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { MessageCircle, Watch } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { getGeneralInquiryUrl } from '../config/store';
+import { WATCH_CATEGORIES } from '../data/catalogData';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -21,7 +22,7 @@ export function HowToBuySection() {
     {
       num: '01.',
       title: 'Elegí categoría',
-      desc: 'Filtrá por marca o estilo entre nuestras 20 líneas importadas en stock.',
+      desc: `Filtrá por marca o estilo entre nuestras ${WATCH_CATEGORIES.length} líneas importadas en stock.`,
     },
     {
       num: '02.',
